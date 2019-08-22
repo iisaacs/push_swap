@@ -6,7 +6,7 @@
 /*   By: iisaacs <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 15:35:31 by iisaacs           #+#    #+#             */
-/*   Updated: 2019/08/20 16:59:49 by iisaacs          ###   ########.fr       */
+/*   Updated: 2019/08/22 16:56:27 by iisaacs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,55 +29,56 @@ t_nlist	*new_nlist(int n)
 }
 
 /*
- * Add existing node to the end of list
+ * Add existing node to the list
+ * mode 1: adds node to end of list
+ * mode 2: adds node to beginnig of list (it's actually anyting but 1)
  */
-void	after_nlist(t_nlist **head, t_nlist *node)
+void	add_nlist(t_nlist **head, t_nlist *node, unsigned int mode)
 {
 	t_nlist *last;
 
-	last = *head;
 	if (!(*head))
 	{
-		*head = node;
+		(*head) = node;
 		return ;
 	}
-	while (last->next)
-		last = last->next;
-	last->next = node;
+	if (mode == 1)
+	{
+		last = *head;
+		while (last->next)
+			last = last->next;
+		last->next = node;
+	}
+	else
+	{
+		node->next = (*head);
+		(*head) = node;
+	}
 }
 
 /*
- * Add existing node to beginning of list
- */
-void	push_nlist(t_nlist **head, t_nlist *node)
-{
-
-	if (!(*head))
-	{
-		(*head) = (node);
-		return ;
-	}
-	(node)->next = (*head);
-	(*head) = (node);
-}
-
-/*
- * Print numbers in lists
+ * Print numbers in list
+ * if list empty print 'EMPTY'
  */
 void	print_list(t_nlist *a, int n)
 {
 	t_nlist *temp;
 
 	temp = (a);
-	if (!temp)
-		return ;
 	printf("Stack %d:\n", n);
+	if (!temp)
+	{
+		printf("EMPTY\n");
+		printf("----------------\n");
+		return ;
+	}
 	while (temp->next)
 	{
 		printf("%d, ", temp->n);
 		temp = temp->next;
 	}
 	printf("%d\n", temp->n);
+	printf("----------------\n");
 }
 
 /*
@@ -104,4 +105,30 @@ int		is_dup_list(t_nlist **a)
 		node = node->next;
 	}
 	return (0);
+}
+
+/*
+ * Check if list is sorted.
+ * If list is sorted print 'OK' to stdout, return (1)
+ * else return (0)
+ */
+int		is_list_sort(t_nlist *a, t_nlist *b)
+{
+	t_nlist *node;
+	t_nlist *temp;
+
+	if (b)
+		return(0);
+	temp = a;
+	node = temp->next;
+	while (node)
+	{
+		if (temp->n > node->n)
+			return (0);
+		temp = temp->next;
+		node = temp->next;
+	}
+	write (1, "\033[1;31m", 0);
+	write (1, "OK\n", 3);
+	return (1);
 }

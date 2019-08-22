@@ -6,7 +6,7 @@
 /*   By: iisaacs <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 15:36:55 by iisaacs           #+#    #+#             */
-/*   Updated: 2019/08/20 17:24:44 by iisaacs          ###   ########.fr       */
+/*   Updated: 2019/08/22 16:31:31 by iisaacs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  */
 void	swap(t_nlist **s_a, t_nlist **s_b, char *cmd)
 {
-	t_nlist  *temp;
+	t_nlist	*temp;
 
 	if (cmd[1] == 'a' || cmd[1] == 's')
 	{
@@ -46,26 +46,21 @@ void	swap(t_nlist **s_a, t_nlist **s_b, char *cmd)
  */
 void	push(t_nlist **s_a, t_nlist **s_b, char *cmd)
 {
-	t_nlist	*temp;
+	t_nlist	*tmp;
+	t_nlist **temp_a;
 
-	if (cmd[1] == 'a')
-	{
-		if (!(*s_b))
-			return ;
-		temp = (*s_b);
-		(*s_b) = (*s_b)->next;
-		temp->next = NULL;
-		push_nlist(s_a, temp);
-	}
 	if (cmd[1] == 'b')
 	{
-		if (!(*s_a))
-			return ;
-		temp = (*s_a);
-		(*s_a) = (*s_a)->next;
-		temp->next = NULL;
-		push_nlist(s_b, temp);
+		temp_a = s_a;
+		s_a = s_b;
+		s_b = temp_a;
 	}
+	if (!(*s_b))
+		return ;
+	tmp = (*s_b);
+	(*s_b) = (*s_b)->next;
+	tmp->next = NULL;
+	add_nlist(s_a, tmp, 2);
 }
 
 /*
@@ -122,7 +117,6 @@ void	rev_rot(t_nlist **s_a, t_nlist **s_b, char *cmd)
 		(*s_a)->next = NULL;
 		temp->next = head;
 		(*s_a) = temp;
-
 	}
 	if (cmd[2] == 'a' || cmd[2] == 'r')
 	{
@@ -138,25 +132,4 @@ void	rev_rot(t_nlist **s_a, t_nlist **s_b, char *cmd)
 	}
 }
 
-/*
- * Check if list is sorted.
- * If list is sorted return (1), else return (0)
- */
-int		is_list_sort(t_nlist **a, t_nlist **b)
-{
-	t_nlist *node;
-	t_nlist *temp;
 
-	if ((*b))
-		return(0);
-	temp = (*a);
-	node = temp->next;
-	while (node)
-	{
-		if (temp->n > node->n)
-			return (0);
-		temp = temp->next;
-		node = temp->next;
-	}
-	return (1);
-}
