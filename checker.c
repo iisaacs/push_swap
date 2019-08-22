@@ -6,7 +6,7 @@
 /*   By: iisaacs <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 14:17:12 by iisaacs           #+#    #+#             */
-/*   Updated: 2019/08/22 16:46:56 by iisaacs          ###   ########.fr       */
+/*   Updated: 2019/08/22 17:03:02 by iisaacs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	error(void)
 }
 
 /*
-** create a list of integers from a string array
+** Create a list of number from a string array
 ** and prints the list to stdout.
 */
 
