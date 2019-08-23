@@ -6,7 +6,7 @@
 /*   By: iisaacs <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 15:35:31 by iisaacs           #+#    #+#             */
-/*   Updated: 2019/08/22 16:56:27 by iisaacs          ###   ########.fr       */
+/*   Updated: 2019/08/23 10:43:49 by iisaacs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 #include <stdio.h>
 
 /*
- * Create a new node with next to NULL,
- * and n assigned to node's n.
- */
+** Creates a new node with next to NULL,
+** and n assigned to node's n.
+*/
+
 t_nlist	*new_nlist(int n)
 {
 	t_nlist	*node;
@@ -29,10 +30,11 @@ t_nlist	*new_nlist(int n)
 }
 
 /*
- * Add existing node to the list
- * mode 1: adds node to end of list
- * mode 2: adds node to beginnig of list (it's actually anyting but 1)
- */
+** Add existing node to the list
+** mode 1: adds node to end of list
+** mode 2: adds node to beginnig of list (it's actually any number but 1)
+*/
+
 void	add_nlist(t_nlist **head, t_nlist *node, unsigned int mode)
 {
 	t_nlist *last;
@@ -57,9 +59,10 @@ void	add_nlist(t_nlist **head, t_nlist *node, unsigned int mode)
 }
 
 /*
- * Print numbers in list
- * if list empty print 'EMPTY'
- */
+** Prints numbers in list
+** if list empty print 'EMPTY'
+*/
+
 void	print_list(t_nlist *a, int n)
 {
 	t_nlist *temp;
@@ -82,9 +85,10 @@ void	print_list(t_nlist *a, int n)
 }
 
 /*
- * Check if there is duplicates numbers
- * in list
- */
+** Checks if there are any duplicate numbers
+** in the list. If there is return TRUE, else return FALSE
+*/
+
 int		is_dup_list(t_nlist **a)
 {
 	t_nlist *node;
@@ -108,17 +112,18 @@ int		is_dup_list(t_nlist **a)
 }
 
 /*
- * Check if list is sorted.
- * If list is sorted print 'OK' to stdout, return (1)
- * else return (0)
- */
+** Checks if list is sorted.
+** If it is print 'OK' to stdout, return (1)
+** else return (0)
+*/
+
 int		is_list_sort(t_nlist *a, t_nlist *b)
 {
 	t_nlist *node;
 	t_nlist *temp;
 
 	if (b)
-		return(0);
+		return (0);
 	temp = a;
 	node = temp->next;
 	while (node)
@@ -128,7 +133,6 @@ int		is_list_sort(t_nlist *a, t_nlist *b)
 		temp = temp->next;
 		node = temp->next;
 	}
-	write (1, "\033[1;31m", 0);
-	write (1, "OK\n", 3);
+	write(1, "OK\n", 3);
 	return (1);
 }
