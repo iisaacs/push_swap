@@ -6,7 +6,7 @@
 /*   By: iisaacs <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 15:36:55 by iisaacs           #+#    #+#             */
-/*   Updated: 2019/08/23 10:35:23 by iisaacs          ###   ########.fr       */
+/*   Updated: 2019/09/19 18:37:55 by iisaacs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,19 @@
 
 /*
 ** Swap command:
-** swaps first and second number in list
+** swaps first and second link in list
 */
 
-void	swap(t_nlist **s_a, t_nlist **s_b, char *cmd)
+char	*swap(t_nlist **s_a, t_nlist **s_b, char *cmd, int *cc)
 {
 	t_nlist	*temp;
 
+	if (cc)
+		(*cc)++;
 	if (cmd[1] == 'a' || cmd[1] == 's')
 	{
 		if (!(*s_a) || (!(*s_a)->next))
-			return ;
+			return (NULL);
 		temp = (*s_a);
 		(*s_a) = (*s_a)->next;
 		temp->next = (*s_a)->next;
@@ -34,25 +36,28 @@ void	swap(t_nlist **s_a, t_nlist **s_b, char *cmd)
 	if (cmd[1] == 'b' || cmd[1] == 's')
 	{
 		if (!(*s_b) || (!(*s_b)->next))
-			return ;
+			return (NULL);;
 		temp = (*s_b);
 		(*s_b) = (*s_b)->next;
 		temp->next = (*s_b)->next;
 		(*s_b)->next = temp;
 	}
+	return (cmd);
 }
 
 /*
 ** Push command:
-** add first number from
+** add first link from
 ** stack to the top of second stack
 */
 
-void	push(t_nlist **s_a, t_nlist **s_b, char *cmd)
+char	*push(t_nlist **s_a, t_nlist **s_b, char *cmd, int	*cc)
 {
 	t_nlist	*tmp;
 	t_nlist **temp_a;
 
+	if (cc)
+		(*cc)++;
 	if (cmd[1] == 'b')
 	{
 		temp_a = s_a;
@@ -60,11 +65,12 @@ void	push(t_nlist **s_a, t_nlist **s_b, char *cmd)
 		s_b = temp_a;
 	}
 	if (!(*s_b))
-		return ;
+		return (NULL);
 	tmp = (*s_b);
 	(*s_b) = (*s_b)->next;
 	tmp->next = NULL;
 	add_nlist(s_a, tmp, 2);
+	return (cmd);
 }
 
 /*
@@ -73,18 +79,20 @@ void	push(t_nlist **s_a, t_nlist **s_b, char *cmd)
 ** and second number becomes first.
 */
 
-void	rot(t_nlist **s_a, t_nlist **s_b, char *cmd)
+char	*rot(t_nlist **s_a, t_nlist **s_b, char *cmd, int	*cc)
 {
 	t_nlist *temp;
 	t_nlist *head;
 	int		times;
 
+	if (cc)
+		(*cc)++;
 	times = (cmd[1] == 'r') ? 2 : 1;
 	s_a = (cmd[1] == 'b') ? s_b : s_a;
 	while (times)
 	{
 		if (!(*s_a) || !(*s_a)->next)
-			return ;
+			return (cmd);
 		temp = (*s_a);
 		(*s_a) = (*s_a)->next;
 		head = (*s_a);
@@ -96,6 +104,7 @@ void	rot(t_nlist **s_a, t_nlist **s_b, char *cmd)
 			s_a = s_b;
 		times--;
 	}
+	return (cmd);
 }
 
 /*
@@ -104,18 +113,20 @@ void	rot(t_nlist **s_a, t_nlist **s_b, char *cmd)
 ** and first becomes second.
 */
 
-void	rev_rot(t_nlist **s_a, t_nlist **s_b, char *cmd)
+char	*rev_rot(t_nlist **s_a, t_nlist **s_b, char *cmd, int	*cc)
 {
 	t_nlist *temp;
 	t_nlist *head;
 	int		times;
 
+	if (cc)
+		(*cc)++;
 	times = (cmd[2] == 'r') ? 2 : 1;
 	s_a = (cmd[2] == 'b') ? s_b : s_a;
 	while (times)
 	{
 		if (!(*s_a) || !(*s_a)->next)
-			return ;
+			return (NULL);
 		head = (*s_a);
 		while ((*s_a)->next->next)
 			(*s_a) = (*s_a)->next;
@@ -127,21 +138,21 @@ void	rev_rot(t_nlist **s_a, t_nlist **s_b, char *cmd)
 			s_a = s_b;
 		times--;
 	}
+	return (cmd);
 }
 
 /*
-** Get integer list:
 ** Create a list of number from a string array
 ** and prints the list to stdout.
 */
 
-void	get_int_list(char **str_ar, t_nlist **head, int ac)
+void	get_int_list(char **str_ar, t_nlist **head, int *ac)
 {
 	int		i;
 	t_nlist	*n_node;
 
 	i = 0;
-	if (ac == 2)
+	if (*ac == 2)
 		str_ar = ft_strsplit(str_ar[0], ' ');
 	while (str_ar[i])
 	{
@@ -151,11 +162,13 @@ void	get_int_list(char **str_ar, t_nlist **head, int ac)
 			add_nlist(head, n_node, 1);
 		}
 		else
-			error();
+			ERROR;
 		i++;
 	}
+	(*ac) = i;
 	if (is_dup_list(head))
-		error();
+		ERROR;
+	normalizer((*head), (*ac));
 	print_list((*head), 1);
 	return ;
 }

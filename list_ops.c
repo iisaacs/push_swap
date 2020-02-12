@@ -6,7 +6,7 @@
 /*   By: iisaacs <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 15:35:31 by iisaacs           #+#    #+#             */
-/*   Updated: 2019/08/23 10:43:49 by iisaacs          ###   ########.fr       */
+/*   Updated: 2019/09/19 22:31:04 by iisaacs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ void	print_list(t_nlist *a, int n)
 	}
 	while (temp->next)
 	{
-		printf("%d, ", temp->n);
+		printf("%d(%d), ", temp->n, temp->norm);
 		temp = temp->next;
 	}
-	printf("%d\n", temp->n);
+	printf("%d(%d)\n", temp->n, temp->norm);
 	printf("----------------\n");
 }
 
@@ -117,7 +117,7 @@ int		is_dup_list(t_nlist **a)
 ** else return (0)
 */
 
-int		is_list_sort(t_nlist *a, t_nlist *b)
+int		is_list_sort(t_nlist *a, t_nlist *b, int m)
 {
 	t_nlist *node;
 	t_nlist *temp;
@@ -133,6 +133,8 @@ int		is_list_sort(t_nlist *a, t_nlist *b)
 		temp = temp->next;
 		node = temp->next;
 	}
-	write(1, "OK\n", 3);
+	if (m) {
+		char *str = "\e[32;40mOK\n";
+		write(1, str, ft_strlen(str));}
 	return (1);
 }
