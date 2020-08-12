@@ -12,24 +12,6 @@
 
 #include "push_swap.h"
 
-
-/*
-** Return's length of list
-*/
-
-int		list_ln(t_nlist *s_a)
-{
-	int len;
-
-	len = 0;
-	while (s_a)
-	{
-		s_a = s_a->next;
-		len++;
-	}
-	return (len);
-}
-
 /*
 ** Sorting algorithm for 3 numbers
 */
@@ -48,31 +30,29 @@ void	algo_3(t_nlist	**s_a, t_nlist  **s_b, int	*cc)
 }
 
 /*
-** Sorting algorithm for 4 and 5 numbers. NOT COMPLETE.
+** Sorting algorithm for 4 and 5 numbers.
 */
-void	algo_4_5(t_nlist   **s_a, t_nlist	**s_b, int	*cc)
+void	algo_4_5(t_nlist   **s_a, t_nlist	**s_b, int	*cc, int	ac)
 {
-	int	times;
-	int max;
-
-	max = list_len(*s_a);
-	times = (max == 5) ? 2 : 1;
-	while (times > 0)
+	int t;
+	
+	t = (ac == 5) ? 5: 4;
+	while (t > 3)
 	{
-		if ((*s_a)->norm >= 4 && (*s_a)->norm <= max)
-		{
-			write(1, push(s_a, s_b, "pb\n", cc), 3);
-			times--;
-		}
-		if (((*s_a)->next->norm >= 4 && (*s_a)->next->norm <= max)
-			|| ((*s_a)->next->next->norm >= 4 && (*s_a)->next->next->norm <= max))
-			write(1, rot(s_a, s_b, "ra\n", cc), 3);
-		else if (times != 0 && (*s_a)->norm != 4 && (*s_a)->norm != 5)
+		while ((*s_a)->norm != t)
 			write(1, rev_rot(s_a, s_b, "rra\n", cc), 4);
-		printf ("  alg5\n");
+		if ((*s_a)->norm == t)
+			write(1, push(s_a, s_b, "pb\n", cc), 3);
+		t--;
 	}
 	algo_3(s_a, s_b, cc);
-	push_back_rot(s_a, s_b, cc, max);
+	t = (ac == 5) ? 5: 4;
+	while (t > 3)
+	{
+		write(1, push(s_a, s_b, "pa\n", cc), 3);
+		write(1, rot(s_a, s_b, "ra\n", cc), 3);
+		t--;
+	}
 }
 
 // void gen_algo(t_nlist **s_a, t_nlist **s_b, int *cc, int *grp)
@@ -112,7 +92,7 @@ int		main(int	ac, char	**arga)
 	if (ac <= 3)
 		algo_3(&head_a, &head_b, &cc);
 	else if (ac <= 5)
-		algo_4_5(&head_a, &head_b, &cc);
+		algo_4_5(&head_a, &head_b, &cc, ac);
 	// else
 	// 	gen_algo(&head_a, &head_b, &cc, grp);
 	printf("cc: %d\n", cc);
