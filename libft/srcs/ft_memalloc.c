@@ -15,11 +15,9 @@
 void	*ft_memalloc(size_t size)
 {
 	void	*new_mem;
-	int		i;
 
 	new_mem = malloc(size);
-	i = 0;
-	if (new_mem == '\0')
+	if (new_mem == NULL)
 		return (NULL);
 	return (ft_memset(new_mem, 0, size));
 }
