@@ -40,7 +40,12 @@ void	algo_4_5(t_nlist   **s_a, t_nlist	**s_b, int	*cc, int	ac)
 	while (t > 3)
 	{
 		while ((*s_a)->norm != t)
-			write(1, rev_rot(s_a, s_b, "rra\n", cc), 4);
+		{
+			if ((*s_a)->norm != t && (*s_a)->next->norm != t)
+				write(1, rev_rot(s_a, s_b, "rra\n", cc), 4);
+			else
+				write(1, rot(s_a, s_b, "ra\n", cc), 3);
+		}
 		if ((*s_a)->norm == t)
 			write(1, push(s_a, s_b, "pb\n", cc), 3);
 		t--;
