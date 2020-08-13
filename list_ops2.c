@@ -5,7 +5,8 @@ void	normalizer(t_nlist	*list, int	ac)
 	t_nlist *temp;
 	t_nlist *node;
 
-	node = temp = list;
+	node = list;
+	temp = list;
 	while (node)
 	{
 		node->norm = ac;
@@ -33,14 +34,25 @@ int		list_len(t_nlist	*list)
 	return (count);
 }
 
-void	push_back_rot(t_nlist **s_a, t_nlist **s_b, int *cc, int max_int)
+/*
+** Takes list and an range(rng) of numbers to be pushed returns 1 
+** to indicate rotate, and return (0) ro reverse rotate
+*/
+
+int	rot_decider(t_nlist **s_a, t_nlist **s_b,int *cc, int *rng)
 {
-	int times = max_int - 3;
-	if ((*s_b)->norm != max_int)
-		write(1, rot(s_a, s_b, "rb\n", cc), 3);
-	while (times--)
-		write(1, push(s_a, s_b, "pa\n", cc), 3);
-	times = max_int - 3;
-	while (times--)
-		write(1, rot(s_a, s_b, "ra\n", cc), 3);
+	t_nlist *node;
+
+	node = (*s_a);
+	while (node)
+	{
+		if (node->norm > rng[0] && node->norm <= rng[1])
+		{
+			write(1, rot(s_a, s_b, "ra\n", cc), 3);
+			return (1);
+		}
+		node = node->next;
+	}
+	write(1, rev_rot(s_a, s_b, "rra\n", cc), 3);
+	return (0);
 }

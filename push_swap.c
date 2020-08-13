@@ -46,8 +46,7 @@ void	algo_4_5(t_nlist   **s_a, t_nlist	**s_b, int	*cc, int	ac)
 			else
 				write(1, rot(s_a, s_b, "ra\n", cc), 3);
 		}
-		if ((*s_a)->norm == t)
-			write(1, push(s_a, s_b, "pb\n", cc), 3);
+		write(1, push(s_a, s_b, "pb\n", cc), 3);
 		t--;
 	}
 	algo_3(s_a, s_b, cc);
@@ -60,23 +59,30 @@ void	algo_4_5(t_nlist   **s_a, t_nlist	**s_b, int	*cc, int	ac)
 	}
 }
 
-// void gen_algo(t_nlist **s_a, t_nlist **s_b, int *cc, int *grp)
-// {
-// 	// int grp[2];
-// 	// int num_a[2];
-// 	int times = grp[1] - grp[0] + 1;
-// 	int *minmax;
+void gen_algo(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng)
+{
+	int len;
+	int t;
 
-// 	push_upd_grp(s_a, s_b, cc, grp);
-// 	push_back_grp(s_a, s_b, cc, grp);
-// 	while (times--)
-// 	{
-// 		sleep(1);
-// 		write(1, rot(s_a, s_b, "ra\n", cc), 3);
-// 	}
-// 	print_list(*s_a, 1);
-// 	print_list(*s_b, 2);
-// }
+	len = list_len((*s_a));
+	rng[1] = len;
+	rng[0] = (len <= 21) ? len/2: len - 20 ;
+	t = (len <= 21) ? rng[0] : 20 ;
+	if ((len % 2) != 0 && (len <= 21))
+		t++;
+	//printf("min: %d, max: %d, t: %d\n", rng[0], rng[1], t);
+
+	while (t)
+	{
+		//printf("norm: %d", (*s_a)->norm);
+		while (!((*s_a)->norm > rng[0] && (*s_a)->norm <= rng[1]))
+			rot_decider(s_a, s_b, cc, rng);
+		write(1, push(s_a, s_b, "pb\n", cc), 3);
+		t--;
+		//change times to loop depending on the length of stack
+	}
+	//push_dec(s_a, s_b, cc);
+}
 
 /*
 ** Push_swap program
@@ -87,9 +93,11 @@ int		main(int	ac, char	**arga)
 	t_nlist *head_a;
 	t_nlist *head_b;
 	char	*line;
-	int		cc;
+	int	cc;
+	int	rng[2];
 
 	cc = 0;
+	head_b = NULL;
 	if (ac > 1)
 		get_int_list(&arga[1], &head_a, &ac);
 	else
@@ -98,8 +106,8 @@ int		main(int	ac, char	**arga)
 		algo_3(&head_a, &head_b, &cc);
 	else if (ac <= 5)
 		algo_4_5(&head_a, &head_b, &cc, ac);
-	// else
-	// 	gen_algo(&head_a, &head_b, &cc, grp);
+	 else
+	 	gen_algo(&head_a, &head_b, &cc, rng);
 	printf("cc: %d\n", cc);
 	print_list(head_a, 1);
 	return (0);

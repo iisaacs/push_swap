@@ -31,20 +31,21 @@ void				get_int_list(char **a, t_nlist **b, int *ac);
 t_nlist				*new_nlist(int n);
 void				add_nlist(t_nlist	**a, t_nlist *b, unsigned int m);
 void				print_list(t_nlist *a, int i);
-int					is_list_sort(t_nlist *a, t_nlist *b, int m);
-int					is_dup_list(t_nlist **a);
+int				is_list_sort(t_nlist *a, t_nlist *b, int m);
+int				is_dup_list(t_nlist **a);
 
 char				*swap(t_nlist **a, t_nlist **b, char *cmd, int	*cc);
 char				*push(t_nlist **a, t_nlist **b, char *cmd, int	*cc);
 char				*rot(t_nlist **a, t_nlist **b, char *cmd, int	*cc);
 char				*rev_rot(t_nlist **a, t_nlist **b, char *cmd, int *cc);
 
-int					list_ln(t_nlist *a);
+int				list_ln(t_nlist *a);
 void				normalizer(t_nlist	*list, int	ac);
-int					list_len(t_nlist *list);
-int					is_dup_list(t_nlist **head);
+int				list_len(t_nlist *list);
+int				is_dup_list(t_nlist **head);
 void				push_back_rot(t_nlist **a, t_nlist **b, int *cc, int max);
 void				push_upd_grp(t_nlist **a, t_nlist **b, int *cc, int *grp);
 void				push_back_grp(t_nlist **a, t_nlist **b, int *cc, int *grp);
+int				rot_decider(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng);
 
 #endif
