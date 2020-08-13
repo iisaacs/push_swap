@@ -81,6 +81,7 @@ void gen_algo(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng)
 		t--;
 		//change times to loop depending on the length of stack
 	}
+
 	//push_dec(s_a, s_b, cc);
 }
 
@@ -106,7 +107,7 @@ int		main(int	ac, char	**arga)
 		algo_3(&head_a, &head_b, &cc);
 	else if (ac <= 5)
 		algo_4_5(&head_a, &head_b, &cc, ac);
-	 else
+	else
 	 	gen_algo(&head_a, &head_b, &cc, rng);
 	printf("cc: %d\n", cc);
 	print_list(head_a, 1);

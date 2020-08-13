@@ -50,3 +50,21 @@ void push_back_grp(t_nlist **s_a, t_nlist **s_b, int *cc, int *grp)
         }
     }
 }
+
+/*
+** Rotate stack (rot or rev_rot) depending on the specified number(n)
+*/
+void	 spec_rot_dec(t_nlist	**s_a, t_nlist	**s_b, int	*cc, int	n)
+{
+	t_nlist *node:
+
+	node = (*s_a);
+	while (node)
+	{
+		if (node->norm == n)
+			write(1, rot(s_a, s_b, "rb\n", cc), 3);
+		node = node->next;
+	}
+	write(1, rev_rot(s_a, s_b, "rrb\n", cc), 3);
+	return (0);
+}
