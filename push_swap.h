@@ -48,4 +48,8 @@ void				push_upd_grp(t_nlist **a, t_nlist **b, int *cc, int *grp);
 void				push_back_grp(t_nlist **a, t_nlist **b, int *cc, int *grp);
 int				rot_decider(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng);
 
+void				push_rng_sb(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng);
+void				push_num_dec(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng);
+void				mod_rng(int *rng);
+
 #endif

@@ -65,24 +65,15 @@ void gen_algo(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng)
 	int t;
 
 	len = list_len((*s_a));
+	rng[2] = len;
 	rng[1] = len;
 	rng[0] = (len <= 21) ? len/2: len - 20 ;
-	t = (len <= 21) ? rng[0] : 20 ;
-	if ((len % 2) != 0 && (len <= 21))
-		t++;
-	//printf("min: %d, max: %d, t: %d\n", rng[0], rng[1], t);
-
-	while (t)
+	while (!is_list_sort((*s_a), (*s_b), 0))
 	{
-		//printf("norm: %d", (*s_a)->norm);
-		while (!((*s_a)->norm > rng[0] && (*s_a)->norm <= rng[1]))
-			rot_decider(s_a, s_b, cc, rng);
-		write(1, push(s_a, s_b, "pb\n", cc), 3);
-		t--;
-		//change times to loop depending on the length of stack
+		push_rng_sb(s_a, s_b, cc, rng);
+		push_num_dec(s_a, s_b, cc, rng);
+		mod_rng(rng);
 	}
-
-	//push_dec(s_a, s_b, cc);
 }
 
 /*
@@ -95,7 +86,7 @@ int		main(int	ac, char	**arga)
 	t_nlist *head_b;
 	char	*line;
 	int	cc;
-	int	rng[2];
+	int	rng[3];
 
 	cc = 0;
 	head_b = NULL;
