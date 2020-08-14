@@ -59,6 +59,12 @@ void	algo_4_5(t_nlist   **s_a, t_nlist	**s_b, int	*cc, int	ac)
 	}
 }
 
+/*
+** General sorting algorithm for number 5 and above.
+** Push numbers in range to stack_b.
+** Push numbers back in decending order.
+** Modify the range and repeat untill list is sorted.
+*/
 void gen_algo(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng)
 {
 	int len;
@@ -93,6 +99,8 @@ int		main(int	ac, char	**arga)
 	if (ac > 1)
 		get_int_list(&arga[1], &head_a, &ac);
 	else
+		return (0);
+	if (is_list_sort(head_a, head_b, 0))
 		return (0);
 	if (ac <= 3)
 		algo_3(&head_a, &head_b, &cc);

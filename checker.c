@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 /*
 ** Checks if str is a valid command if it
@@ -59,7 +58,7 @@ int		main(int ac, char **arg_a)
 	head_b = NULL;
 	if (ac > 1)
 		get_int_list(&arg_a[1], &head_a, &ac);
-	else
+	else 
 		return (0);
 	print_list(head_b, 2);
 	while (get_next_line(0, &line) > 0)
