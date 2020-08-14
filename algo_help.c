@@ -43,7 +43,6 @@ void	 spec_rot_dec(t_nlist	**s_a, t_nlist	**s_b, int	*cc, int	n)
 */
 void	push_rng_sb(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng)
 {
-	printf("here1");
 	int t;
 	int len;
 
