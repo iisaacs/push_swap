@@ -35,7 +35,7 @@ void	 spec_rot_dec(t_nlist	**s_a, t_nlist	**s_b, int	*cc, int	n)
 		i++;
 	}
 	while ((*s_b)->norm != n)
-		write(1, rev_rot(s_a, s_b, "rrb\n", cc), 3);
+		write(1, rev_rot(s_a, s_b, "rrb\n", cc), 4);
 }
 
 /*
