@@ -67,13 +67,20 @@ void	algo_4_5(t_nlist   **s_a, t_nlist	**s_b, int	*cc, int	ac)
 */
 void gen_algo(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng)
 {
+	print_list((*s_a), 1);
+	print_list((*s_b), 1);
 	int len;
 	int t;
 
 	len = list_len((*s_a));
 	rng[2] = len;
 	rng[1] = len;
-	rng[0] = (len <= 21) ? len/2: len - 20;
+	rng[0] = (len <= (RNG + 1)) ? len/2: len - RNG;
+
+	//Get numbers close to each other not sorted
+	//almost_sort(s_a, s_b, cc, rng);
+	//mod_rng(rng);
+
 	while (!is_list_sort((*s_a), (*s_b), 0))
 	{
 		push_rng_sb(s_a, s_b, cc, rng);

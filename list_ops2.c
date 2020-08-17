@@ -35,7 +35,7 @@ int		list_len(t_nlist	*list)
 }
 
 /*
-** Takes list and an range(rng) of numbers to be pushed returns 1 
+** Takes list and a range(rng) of numbers to be pushed returns 1 
 ** to indicate rotate, and return (0) ro reverse rotate
 */
 
@@ -55,4 +55,30 @@ int	rot_decider(t_nlist **s_a, t_nlist **s_b,int *cc, int *rng)
 	}
 	write(1, rev_rot(s_a, s_b, "rra\n", cc), 3);
 	return (0);
+}
+
+/*
+** Prints numbers in list
+** if list empty print 'EMPTY'
+*/
+
+void	print_list(t_nlist *a, int n)
+{
+	t_nlist *temp;
+
+	temp = (a);
+	printf("Stack %d:\n", n);
+	if (!temp)
+	{
+		printf("EMPTY\n");
+		printf("----------------\n");
+		return ;
+	}
+	while (temp->next)
+	{
+		printf("%d(%d), ", temp->n, temp->norm);
+		temp = temp->next;
+	}
+	printf("%d(%d)\n", temp->n, temp->norm);
+	printf("----------------\n");
 }

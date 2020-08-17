@@ -22,9 +22,10 @@ void	 spec_rot_dec(t_nlist	**s_a, t_nlist	**s_b, int	*cc, int	n)
 	int i;
 
 	node = (*s_b);
-	len = list_len((*s_a));
+	len = list_len((*s_b));
+	//printf("len: %d\n", len);
 	i = 0;
-	while (node && i < len/2)
+	while (node && (i < len/2))
 	{
 		if (node->norm == n)
 		{
@@ -41,14 +42,14 @@ void	 spec_rot_dec(t_nlist	**s_a, t_nlist	**s_b, int	*cc, int	n)
 /*
 ** Push range(rng) to stack b in any order.
 */
-void	push_rng_sb(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng)
+int	push_rng_sb(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng)
 {
 	int t;
 	int len;
 
 	len = rng[2];
-	t = (len <= 21) ? rng[0] : 20;
-	if ((len % 2 != 0) && (len <= 21))
+	t = (len <= (RNG + 1)) ? rng[0] : RNG;
+	if ((len % 2 != 0) && (len <= (RNG + 1)))
 		t++;
 	if (rng[0] == 0)
 		t = rng[1];
@@ -62,8 +63,7 @@ void	push_rng_sb(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng)
 }
 
 /*
-** Push numbers in stack_b to stack_a in decending order and rotate to new group
-** if min range is 0, push in ascending order.
+** Push numbers from stack_b to stack_a in decending order
 */
 
 void	push_num_dec(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng)
@@ -80,11 +80,6 @@ void	push_num_dec(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng)
 		n--;
 		c++;
 	}
-	while (c && rng[0] != 0)
-	{
-		write(1, rot(s_a, s_b, "ra\n", cc), 3);
-		c--;
-	}
 }
 
 /*
@@ -99,8 +94,28 @@ void	mod_rng(int *rng)
 	len = rng[2];
 	tmp = rng[0];
 	rng[1] = rng[0];
-	if (tmp >= 20)
-		rng[0] = tmp - 20;
+	if (tmp >= RNG)
+		rng[0] = tmp - RNG;
 	rng[0] = tmp - tmp;
 }
 
+void	almost_sort(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng)
+{
+	int t;
+	int *t_rng;
+
+	t_rng = rng;
+	t = rng[2];
+	while ((*s_a) != NULL)
+	{
+		push_rng_sb(s_a, s_b, cc, rng);
+		mod_rng(t_rng);
+	}
+	t = (rng[2] <= RNG) ? (t - rng[2]/2): (t - RNG);
+	while (t)
+	{
+		write(1, push(s_a, s_b, "pa\n", cc), 3);
+		t--;
+	}
+	return ;
+}

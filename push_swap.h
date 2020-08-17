@@ -15,8 +15,10 @@
 # include "libft/includes/libft.h"
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
 
 # define ERROR {write(2, "Error\n", 6); exit(-1);}
+# define RNG 5
 
 typedef struct		s_nlist
 {
@@ -43,8 +45,10 @@ int				list_len(t_nlist *list);
 int				is_dup_list(t_nlist **head);
 int				rot_decider(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng);
 
-void				push_rng_sb(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng);
+int				push_rng_sb(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng);
 void				push_num_dec(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng);
 void				mod_rng(int *rng);
+void				almost_sort(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng);
 
+void				print_list(t_nlist *a, int n);
 #endif
