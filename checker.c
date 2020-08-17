@@ -20,12 +20,12 @@
 
 int		is_cmd_exe(char *str, t_nlist **head_a, t_nlist **head_b)
 {
-	if (ft_strcmp(str, "sa") == 0 || ft_strcmp(str, "sb") == 0
-			|| ft_strcmp(str, "ss") == 0 || ft_strcmp(str, "pa") == 0
-			|| ft_strcmp(str, "pb") == 0 || ft_strcmp(str, "ra") == 0
-			|| ft_strcmp(str, "rb") == 0 || ft_strcmp(str, "rr") == 0
-			|| ft_strcmp(str, "rra") == 0 || ft_strcmp(str, "rrb") == 0
-			|| ft_strcmp(str, "rrr") == 0)
+	if (ft_strcmp(str, "sa") == 0 || ft_strcmp(str, "sb") == 0 || 
+	    ft_strcmp(str, "ss") == 0 || ft_strcmp(str, "pa") == 0 ||
+	    ft_strcmp(str, "pb") == 0 || ft_strcmp(str, "ra") == 0 ||
+	    ft_strcmp(str, "rb") == 0 || ft_strcmp(str, "rr") == 0 ||
+	    ft_strcmp(str, "rra") == 0 || ft_strcmp(str, "rrb") == 0 ||
+	    ft_strcmp(str, "rrr") == 0)
 	{
 		if (ft_strlen(str) == 2)
 		{
@@ -60,17 +60,8 @@ int		main(int ac, char **arg_a)
 		get_int_list(&arg_a[1], &head_a, &ac);
 	else 
 		return (0);
-	print_list(head_b, 2);
 	while (get_next_line(0, &line) > 0)
-	{
-		if (is_cmd_exe(line, &head_a, &head_b))
-		{
-			print_list(head_a, 1);
-			print_list(head_b, 2);
-			if (is_list_sort(head_a, head_b, 1))
-				return (1);
-		}
-	}
+		is_cmd_exe(line, &head_a, &head_b);
 	if (is_list_sort(head_a, head_b, 1))
 		return (1);
 	write(1, "\e[0;31mKO\n", 10);

@@ -169,6 +169,5 @@ void	get_int_list(char **str_ar, t_nlist **head, int *ac)
 	if (is_dup_list(head))
 		ERROR;
 	normalizer((*head), (*ac));
-	print_list((*head), 1);
 	return ;
 }

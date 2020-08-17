@@ -60,7 +60,7 @@ void	algo_4_5(t_nlist   **s_a, t_nlist	**s_b, int	*cc, int	ac)
 }
 
 /*
-** General sorting algorithm for number 5 and above.
+** General sorting algorithm for numbers 5 and above.
 ** Push numbers in range to stack_b.
 ** Push numbers back in decending order.
 ** Modify the range and repeat untill list is sorted.
@@ -73,7 +73,7 @@ void gen_algo(t_nlist **s_a, t_nlist **s_b, int *cc, int *rng)
 	len = list_len((*s_a));
 	rng[2] = len;
 	rng[1] = len;
-	rng[0] = (len <= 21) ? len/2: len - 20 ;
+	rng[0] = (len <= 21) ? len/2: len - 20;
 	while (!is_list_sort((*s_a), (*s_b), 0))
 	{
 		push_rng_sb(s_a, s_b, cc, rng);
@@ -108,7 +108,5 @@ int		main(int	ac, char	**arga)
 		algo_4_5(&head_a, &head_b, &cc, ac);
 	else
 	 	gen_algo(&head_a, &head_b, &cc, rng);
-	printf("cc: %d\n", cc);
-	print_list(head_a, 1);
 	return (0);
 }

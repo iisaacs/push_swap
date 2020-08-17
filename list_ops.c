@@ -58,32 +58,6 @@ void	add_nlist(t_nlist **head, t_nlist *node, unsigned int mode)
 }
 
 /*
-** Prints numbers in list
-** if list empty print 'EMPTY'
-*/
-
-void	print_list(t_nlist *a, int n)
-{
-	t_nlist *temp;
-
-	temp = (a);
-	printf("Stack %d:\n", n);
-	if (!temp)
-	{
-		printf("EMPTY\n");
-		printf("----------------\n");
-		return ;
-	}
-	while (temp->next)
-	{
-		printf("%d(%d), ", temp->n, temp->norm);
-		temp = temp->next;
-	}
-	printf("%d(%d)\n", temp->n, temp->norm);
-	printf("----------------\n");
-}
-
-/*
 ** Checks if there are any duplicate numbers
 ** in the list. If there is return TRUE, else return FALSE
 */
@@ -111,7 +85,7 @@ int		is_dup_list(t_nlist **a)
 }
 
 /*
-** Checks if list is sorted.
+** Checks if list is sorted in ascending order.
 ** If it is print 'OK' to stdout, return (1)
 ** else return (0)
 */
